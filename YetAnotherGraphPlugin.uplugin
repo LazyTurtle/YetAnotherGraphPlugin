@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Yet Another Graph Plugin",
+	"Description": "A plugin for creating graphs.",
+	"Category": "Other",
+	"CreatedBy": "Jhonny Hueller",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "YetAnotherGraphEditor",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "YetOtherGraphAssets",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
