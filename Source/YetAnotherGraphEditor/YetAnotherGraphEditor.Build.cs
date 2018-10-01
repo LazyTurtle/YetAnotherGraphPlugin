@@ -21,7 +21,7 @@ public class YetAnotherGraphEditor : ModuleRules
                 "YetAnotherGraphEditor/Private/Toolkits",
                 "YetAnotherGraphEditor/Private/AssetTypeActions",
                 "YetAnotherGraphEditor/Private/EditorGraph",
-                "YetAnotherGraphEditor/Private/EditorGraph/Factories",
+                "YetAnotherGraphEditor/Private/Factories",
                 "YetAnotherGraphEditor/Private/EditorGraph/SchemaActions",
                 "YetAnotherGraphEditor/Private/EditorGraph/EditorNodes",
                 "YetAnotherGraphEditor/Private/EditorGraph/SlateWidgets",

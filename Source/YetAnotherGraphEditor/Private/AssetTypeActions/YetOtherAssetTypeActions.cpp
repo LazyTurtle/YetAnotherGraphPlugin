@@ -1,6 +1,8 @@
 #include "YetOtherAssetTypeActions.h"
 #include "YAGraph.h"
 #include "YetAnotherGraphEditorToolkit.h"
+#include "ModuleManager.h"
+#include "YetAnotherGraphEditor.h"
 
 #define LOCTEXT_NAMESPACE "YetOtherAssetTypeActions"
 
@@ -35,6 +37,9 @@ bool FYetOtherAssetTypeActions::HasActions(const TArray<UObject*>& InObjects) co
 
 void FYetOtherAssetTypeActions::OpenAssetEditor(const TArray<UObject*>& InObjects, TSharedPtr<class IToolkitHost> EditWithinLevelEditor)
 {
+	FYetAnotherGraphEditorModule& Helper= FModuleManager::LoadModuleChecked<FYetAnotherGraphEditorModule>("YetAnotherGraphEditor");
+	Helper.StartNodeHelper();
+
 	EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ? EToolkitMode::WorldCentric : EToolkitMode::Standalone;
 	for (auto Object = InObjects.CreateConstIterator(); Object; Object++)
 	{
