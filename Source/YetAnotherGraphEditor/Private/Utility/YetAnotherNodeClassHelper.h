@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "UObject/ObjectMacros.h"
 #include "UObject/WeakObjectPtr.h"
-#include "GraphNodeClassHelper.generated.h"
+#include "YetAnotherNodeClassHelper.generated.h"
 
 /**
  * 

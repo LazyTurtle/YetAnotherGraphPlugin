@@ -4,7 +4,7 @@
 #include "AssetToolsModule.h"
 #include "YetOtherAssetTypeActions.h"
 #include "EditorLogger.h"
-#include "GraphNodeClassHelper.h"
+#include "YetAnotherNodeClassHelper.h"
 #include "YANode.h"
 #include "SimpleNode.h"
 

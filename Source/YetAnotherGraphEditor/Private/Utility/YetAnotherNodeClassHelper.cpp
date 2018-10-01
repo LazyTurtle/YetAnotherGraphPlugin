@@ -1,4 +1,4 @@
-#include "GraphNodeClassHelper.h"
+#include "YetAnotherNodeClassHelper.h"
 #include "Class.h"
 #include "FeedbackContext.h"
 #include "Package.h"
@@ -123,7 +123,6 @@ FYetAnotherNodeClassHelper::FOnPackageListUpdated FYetAnotherNodeClassHelper::On
 FYetAnotherNodeClassHelper::FYetAnotherNodeClassHelper(UClass* InRootClass)
 {
 	RootNodeClass = InRootClass;
-	EDWLog("Constructor");
 	// Register with the Asset Registry to be informed when it is done loading up files.
 	FAssetRegistryModule& AssetRegistryModule = FModuleManager::GetModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));
 	AssetRegistryModule.Get().OnFilesLoaded().AddRaw(this, &FYetAnotherNodeClassHelper::InvalidateCache);
@@ -143,7 +142,6 @@ FYetAnotherNodeClassHelper::FYetAnotherNodeClassHelper(UClass* InRootClass)
 
 FYetAnotherNodeClassHelper::~FYetAnotherNodeClassHelper()
 {
-	EDWLog("Deconstructor");
 	// Unregister with the Asset Registry to be informed when it is done loading up files.
 	if (FModuleManager::Get().IsModuleLoaded(TEXT("AssetRegistry")))
 	{
@@ -171,7 +169,6 @@ FYetAnotherNodeClassHelper::~FYetAnotherNodeClassHelper()
 
 void FYetAnotherNodeClassNode::AddUniqueSubNode(TSharedPtr<FYetAnotherNodeClassNode> SubNode)
 {
-	EDWLog("AddUniqueSubNode");
 	for (int32 Idx = 0; Idx < SubNodes.Num(); Idx++)
 	{
 		if (SubNode->Data.GetClassName() == SubNodes[Idx]->Data.GetClassName())
@@ -185,7 +182,6 @@ void FYetAnotherNodeClassNode::AddUniqueSubNode(TSharedPtr<FYetAnotherNodeClassN
 
 void FYetAnotherNodeClassHelper::GatherClasses(const UClass* BaseClass, TArray<FYetAnotherNodeClassData>& AvailableClasses)
 {
-	EDWLog("GatherClasses");
 	const FString BaseClassName = BaseClass->GetName();
 	if (!RootNode.IsValid())
 	{
@@ -246,7 +242,6 @@ bool FYetAnotherNodeClassHelper::IsPackageSaved(FName PackageName)
 
 void FYetAnotherNodeClassHelper::OnAssetAdded(const struct FAssetData& AssetData)
 {
-	EDWLog("OnAssetAdded");
 	TSharedPtr<FYetAnotherNodeClassNode> Node = CreateClassDataNode(AssetData);
 
 	TSharedPtr<FYetAnotherNodeClassNode> ParentNode;
@@ -285,7 +280,6 @@ void FYetAnotherNodeClassHelper::OnAssetAdded(const struct FAssetData& AssetData
 
 void FYetAnotherNodeClassHelper::OnAssetRemoved(const struct FAssetData& AssetData)
 {
-	EDWLog("OnAssetRemoved");
 	FString AssetClassName;
 	if (AssetData.GetTagValue(FBlueprintTags::GeneratedClassPath, AssetClassName))
 	{
@@ -308,7 +302,6 @@ void FYetAnotherNodeClassHelper::OnAssetRemoved(const struct FAssetData& AssetDa
 
 void FYetAnotherNodeClassHelper::InvalidateCache()
 {
-	EDWLog("InvalidateCache");
 	RootNode.Reset();
 
 	UpdateAvailableBlueprintClasses();
@@ -316,13 +309,11 @@ void FYetAnotherNodeClassHelper::InvalidateCache()
 
 void FYetAnotherNodeClassHelper::OnHotReload(bool bWasTriggeredAutomatically)
 {
-	EDWLog("OnHotReload");
 	InvalidateCache();
 }
 
 TSharedPtr<FYetAnotherNodeClassNode> FYetAnotherNodeClassHelper::CreateClassDataNode(const struct FAssetData& AssetData)
 {
-	EDWLog("CreateClassDataNode");
 	TSharedPtr<FYetAnotherNodeClassNode> Node;
 
 	FString AssetClassName;
@@ -351,7 +342,6 @@ TSharedPtr<FYetAnotherNodeClassNode> FYetAnotherNodeClassHelper::CreateClassData
 
 TSharedPtr<FYetAnotherNodeClassNode> FYetAnotherNodeClassHelper::FindBaseClassNode(TSharedPtr<FYetAnotherNodeClassNode> Node, const FString& ClassName)
 {
-	EDWLog("FindBaseClassNode");
 	TSharedPtr<FYetAnotherNodeClassNode> RetNode;
 	if (Node.IsValid())
 	{
@@ -375,7 +365,6 @@ TSharedPtr<FYetAnotherNodeClassNode> FYetAnotherNodeClassHelper::FindBaseClassNo
 
 void FYetAnotherNodeClassHelper::FindAllSubClasses(TSharedPtr<FYetAnotherNodeClassNode> Node, TArray<FYetAnotherNodeClassData>& AvailableClasses)
 {
-	EDWLog("FindAllSubClasses");
 	if (Node.IsValid())
 	{
 		if (!Node->Data.IsAbstract() && !Node->Data.IsDeprecated() && !Node->Data.bIsHidden)
@@ -392,7 +381,6 @@ void FYetAnotherNodeClassHelper::FindAllSubClasses(TSharedPtr<FYetAnotherNodeCla
 
 UClass* FYetAnotherNodeClassHelper::FindAssetClass(const FString& GeneratedClassPackage, const FString& AssetName)
 {
-	EDWLog("FindAssetClass");
 	UPackage* Package = FindPackage(NULL, *GeneratedClassPackage);
 	if (Package)
 	{
@@ -409,7 +397,6 @@ UClass* FYetAnotherNodeClassHelper::FindAssetClass(const FString& GeneratedClass
 
 void FYetAnotherNodeClassHelper::BuildClassGraph()
 {
-	EDWLog("BuildClassGraph");
 	TArray<TSharedPtr<FYetAnotherNodeClassNode> > NodeList;
 	TArray<UClass*> HideParentList;
 	RootNode.Reset();
@@ -475,7 +462,6 @@ void FYetAnotherNodeClassHelper::BuildClassGraph()
 
 void FYetAnotherNodeClassHelper::AddClassGraphChildren(TSharedPtr<FYetAnotherNodeClassNode> Node, TArray<TSharedPtr<FYetAnotherNodeClassNode> >& NodeList)
 {
-	EDWLog("AddClassGraphChildren");
 	if (!Node.IsValid())
 	{
 		return;
@@ -504,13 +490,11 @@ int32 FYetAnotherNodeClassHelper::GetObservedBlueprintClassCount(UClass* BaseNat
 
 void FYetAnotherNodeClassHelper::AddObservedBlueprintClasses(UClass* BaseNativeClass)
 {
-	EDWLog("AddObservedBlueprintClasses");
 	BlueprintClassCount.Add(BaseNativeClass, 0);
 }
 
 void FYetAnotherNodeClassHelper::UpdateAvailableBlueprintClasses()
 {
-	EDWLog("UpdateAvailableBlueprintClasses");
 	if (FModuleManager::Get().IsModuleLoaded(TEXT("AssetRegistry")))
 	{
 		FAssetRegistryModule& AssetRegistryModule = FModuleManager::GetModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));

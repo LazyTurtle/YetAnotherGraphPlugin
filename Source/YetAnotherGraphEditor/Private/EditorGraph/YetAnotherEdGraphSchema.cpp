@@ -8,7 +8,7 @@
 #include "StartNode.h"
 #include "YAGraph.h"
 #include "YetAnotherEdGraphNode.h"
-#include "GraphNodeClassHelper.h"
+#include "YetAnotherNodeClassHelper.h"
 #include "ModuleManager.h"
 #include "YetAnotherGraphEditor.h"
 
@@ -98,9 +98,6 @@ void UYetAnotherEdGraphSchema::InitNodeClasses()
 		if (It->IsChildOf(UYANode::StaticClass()) && !It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
 		{
 			EDLLog("%s", *It->GetDefaultObjectName().ToString());
-
-			/////////////////////////////////////////////////////////////find a way to remove SKEL and REINST nodes from the list that doesn't use the name as a filter
-			
 			NodeClasses.Add(*It);
 		}
 	}
@@ -109,11 +106,12 @@ void UYetAnotherEdGraphSchema::InitNodeClasses()
 
 	FYetAnotherGraphEditorModule& YAModule = FModuleManager::GetModuleChecked<FYetAnotherGraphEditorModule>("YetAnotherGraphEditor");
 	TSharedPtr<FYetAnotherNodeClassHelper> Helper = YAModule.GetHelper();
-	TArray<FYetAnotherNodeClassData> BClasses;
-	Helper->GatherClasses(USimpleNode::StaticClass(), BClasses);
+	TArray<FYetAnotherNodeClassData> BlueprintClasses;
+	Helper->GatherClasses(USimpleNode::StaticClass(), BlueprintClasses);
 
-	for (auto& BlueprintClass : BClasses)
+	for (auto& BlueprintClass : BlueprintClasses)
 	{
+		EDLLog("%s",*BlueprintClass.GetClass()->GetName());
 		NodeClasses.Add(BlueprintClass.GetClass());
 	}
 
