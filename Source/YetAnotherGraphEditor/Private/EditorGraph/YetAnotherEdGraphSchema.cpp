@@ -14,8 +14,6 @@
 
 #define LOCTEXT_NAMESPACE "YetAnotherEdGraphSchema"
 
-TSet<TSubclassOf<UYANode>> UYetAnotherEdGraphSchema::NodeClasses;
-
 UYetAnotherEdGraphSchema::UYetAnotherEdGraphSchema(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer){}
 
 void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder & ContextMenuBuilder) const
@@ -23,18 +21,49 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 
 	FText ToolTip = LOCTEXT("NewYetAnotherNodeTooltip", "Add a {NodeName} to the graph.");
 	FText MenuDesc = LOCTEXT("NewYetAnotherNodeDescription", "{NodeName}");
+	
+	EDLLog("Gathering C++ classes.");
 
-	InitNodeClasses();
+	FCategorizedGraphActionListBuilder BaseBuilder(TEXT("Base Nodes"));
+	TArray<TSubclassOf<UYANode>> BasicNodes;
 
-	FFormatNamedArguments Arguments;
-
-	for (TSubclassOf<UYANode> NodeClass : NodeClasses)
+	for (TObjectIterator<UClass> It; It; ++It)
 	{
-		Arguments.Add(TEXT("NodeName"), NodeClass->GetDisplayNameText());
-		TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction(new FYAEdGraphSchemaAction_NewNode(LOCTEXT("YetAnotherGraphEdGraphSchema", "YetAnother Graph"), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, NodeClass));
-		ContextMenuBuilder.AddAction(NewNodeAction);
+		if (It->IsChildOf(UYANode::StaticClass()) && !It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
+		{
+			FFormatNamedArguments Arguments;
+			Arguments.Add(TEXT("NodeName"), It->GetDisplayNameText());
+			TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, *It));
+			BaseBuilder.AddAction(NewNodeAction);
+			EDLLog("%s added", *It->GetDisplayNameText().ToString());
+		}
 	}
 
+	ContextMenuBuilder.Append(BaseBuilder);
+	
+	EDLLog("Gathering child blueprints.");
+
+	FYetAnotherGraphEditorModule& YAModule = FModuleManager::GetModuleChecked<FYetAnotherGraphEditorModule>("YetAnotherGraphEditor");
+	TSharedPtr<FYetAnotherNodeClassHelper> Helper = YAModule.GetHelper();
+
+	TArray<FYetAnotherNodeClassData> BlueprintClasses;
+	Helper->GatherClasses(USimpleNode::StaticClass(), BlueprintClasses);
+
+	FCategorizedGraphActionListBuilder BlueprintBuilder(TEXT("User Defined Nodes"));
+
+	for (auto& BlueprintClassData : BlueprintClasses)
+	{
+		if (!BlueprintClassData.GetClass()->HasAnyClassFlags(CLASS_Native))
+		{
+			FFormatNamedArguments Arguments;
+			Arguments.Add(TEXT("NodeName"), BlueprintClassData.GetClass()->GetDisplayNameText());
+			TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
+			BlueprintBuilder.AddAction(NewNodeAction);
+			EDLLog("%s", *BlueprintClassData.GetClass()->GetName());
+		}
+	}
+
+	ContextMenuBuilder.Append(BlueprintBuilder);
 }
 
 void UYetAnotherEdGraphSchema::GetContextMenuActions(const UEdGraph * CurrentGraph, const UEdGraphNode * InGraphNode, const UEdGraphPin * InGraphPin, FMenuBuilder * MenuBuilder, bool bIsDebugging) const
@@ -85,35 +114,5 @@ void UYetAnotherEdGraphSchema::CreateDefaultNodesForGraph(UEdGraph & Graph) cons
 		EdNode->NodePosX = 0;
 		EdNode->NodePosY = 0;
 	}
-}
-
-void UYetAnotherEdGraphSchema::InitNodeClasses()
-{
-	NodeClasses.Empty();
-
-	EDLLog("Gathering C++ classes.");
-
-	for (TObjectIterator<UClass> It; It; ++It)
-	{
-		if (It->IsChildOf(UYANode::StaticClass()) && !It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
-		{
-			EDLLog("%s", *It->GetDefaultObjectName().ToString());
-			NodeClasses.Add(*It);
-		}
-	}
-
-	EDLLog("Gathering child blueprints.");
-
-	FYetAnotherGraphEditorModule& YAModule = FModuleManager::GetModuleChecked<FYetAnotherGraphEditorModule>("YetAnotherGraphEditor");
-	TSharedPtr<FYetAnotherNodeClassHelper> Helper = YAModule.GetHelper();
-	TArray<FYetAnotherNodeClassData> BlueprintClasses;
-	Helper->GatherClasses(USimpleNode::StaticClass(), BlueprintClasses);
-
-	for (auto& BlueprintClass : BlueprintClasses)
-	{
-		EDLLog("%s",*BlueprintClass.GetClass()->GetName());
-		NodeClasses.Add(BlueprintClass.GetClass());
-	}
-
 }
 #undef LOCTEXT_NAMESPACE

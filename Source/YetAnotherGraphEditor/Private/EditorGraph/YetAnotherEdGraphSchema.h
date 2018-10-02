@@ -56,7 +56,4 @@ public:
 	*/
 	virtual void CreateDefaultNodesForGraph(UEdGraph& Graph) const override;
 
-private:
-	static void InitNodeClasses();
-	static TSet<TSubclassOf<UYANode>> NodeClasses;
 };
