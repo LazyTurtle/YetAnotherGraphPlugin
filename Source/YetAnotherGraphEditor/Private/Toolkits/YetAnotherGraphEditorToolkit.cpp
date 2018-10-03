@@ -10,6 +10,7 @@
 #include "EdGraphUtilities.h"
 #include "PlatformApplicationMisc.h"
 #include "YetAnotherEdGraphNode.h"
+#include "Editor.h"
 
 
 #define LOCTEXT_NAMESPACE "YetAnotherGraphEditorToolkit"
@@ -20,10 +21,12 @@ const FName FYetAnotherGraphEditorToolkit::GraphTabId(TEXT("YetAnotherGraphEdito
 
 FYetAnotherGraphEditorToolkit::FYetAnotherGraphEditorToolkit()
 {
+	GEditor->OnBlueprintCompiled().AddRaw(this,&FYetAnotherGraphEditorToolkit::BlueprintCompiled);
 }
 
 FYetAnotherGraphEditorToolkit::~FYetAnotherGraphEditorToolkit()
 {
+	GEditor->OnBlueprintCompiled().RemoveAll(this);
 }
 
 
@@ -148,6 +151,13 @@ void FYetAnotherGraphEditorToolkit::InitGraphAssetEditor(const EToolkitMode::Typ
 		);
 
 	FAssetEditorToolkit::InitAssetEditor(InMode, InToolkitHost, FName("GraphEditorIdentifier"), Layout, true, true, GraphAsset);
+}
+
+void FYetAnotherGraphEditorToolkit::BlueprintCompiled()
+{
+	UEdGraph* EdGraph = EdGraphEditor->GetCurrentGraph();
+	if (UYAEdGraph* MyGraph = Cast<UYAEdGraph>(EdGraph))
+		MyGraph->RefreshNodes();
 }
 
 void FYetAnotherGraphEditorToolkit::SaveAsset_Execute()

@@ -17,7 +17,7 @@ bool UYAEdGraph::IsNameUnique(const FText & InName)
 		{
 			if (NodeName.EqualToCaseIgnored(InName))
 			{
-				EDLLog("I found another node with the same name: %s.", *NodeName.ToString());
+				EDWLog("I found another node with the same name: %s.", *NodeName.ToString());
 				bUnique = false;
 			}
 		}
@@ -81,4 +81,13 @@ void UYAEdGraph::LinkAssetNodes()
 		}
 	}
 
+}
+
+void UYAEdGraph::RefreshNodes()
+{
+	for (UEdGraphNode* Node : Nodes)
+	{
+		if (UYetAnotherEdGraphNode* YANode = Cast<UYetAnotherEdGraphNode>(Node))
+			YANode->UpdateVisualNode();
+	}
 }

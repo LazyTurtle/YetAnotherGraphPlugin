@@ -303,7 +303,6 @@ void FYetAnotherNodeClassHelper::OnAssetRemoved(const struct FAssetData& AssetDa
 void FYetAnotherNodeClassHelper::InvalidateCache()
 {
 	RootNode.Reset();
-
 	UpdateAvailableBlueprintClasses();
 }
 

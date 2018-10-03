@@ -43,11 +43,13 @@ public:
 	virtual void SetAssetNodeClass(TSubclassOf<UYANode> InNodeClass);
 	virtual TSubclassOf<UYANode> GetAssetNodeClass();
 
+	virtual void UpdateVisualNode();
+
 protected:
 
 	virtual bool HasOutputPins();
 	virtual bool HasInputPins();
-
+	TSharedPtr<SGraphNode>SlateNode;
 
 public:
 
@@ -55,6 +57,7 @@ public:
 		UYANode* AssetNode = nullptr;
 	UPROPERTY()
 		FText EdNodeName = FText();
+
 
 	TSubclassOf<UYANode>AssetClass;
 

@@ -19,5 +19,6 @@ public:
 	virtual bool IsNameUnique(const FText& InName);
 	virtual void ClearOldLinks();
 	virtual void LinkAssetNodes();
+	virtual void RefreshNodes();
 	
 };

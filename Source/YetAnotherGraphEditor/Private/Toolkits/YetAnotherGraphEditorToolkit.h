@@ -26,6 +26,7 @@ public:
 	virtual void SaveAsset_Execute() override;
 
 	virtual void InitGraphAssetEditor(const EToolkitMode::Type InMode, const TSharedPtr<class IToolkitHost>& InToolkitHost, UYAGraph* InGraph);
+	virtual void BlueprintCompiled();
 private:
 
 	static const FName DetailsTabId;

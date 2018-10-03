@@ -14,7 +14,8 @@ UYetAnotherEdGraphNode::UYetAnotherEdGraphNode(const FObjectInitializer& ObjectI
 
 TSharedPtr<SGraphNode> UYetAnotherEdGraphNode::CreateVisualWidget()
 {
-	return SNew(SYAGraphNode, this);
+	SlateNode= SNew(SYAGraphNode, this);
+	return SlateNode;
 }
 
 TSharedPtr<SWidget> UYetAnotherEdGraphNode::GetContentWidget()
@@ -38,6 +39,11 @@ void UYetAnotherEdGraphNode::SetAssetNodeClass(TSubclassOf<UYANode> InNodeClass)
 TSubclassOf<UYANode> UYetAnotherEdGraphNode::GetAssetNodeClass()
 {
 	return AssetClass;
+}
+
+void UYetAnotherEdGraphNode::UpdateVisualNode()
+{
+	SlateNode->UpdateGraphNode();
 }
 
 bool UYetAnotherEdGraphNode::HasOutputPins()

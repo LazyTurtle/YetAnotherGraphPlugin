@@ -9,7 +9,6 @@
 void SYAGraphNode::Construct(const FArguments & InArgs, UEdGraphNode * InNode)
 {
 	GraphNode = InNode;
-
 	UpdateGraphNode();
 }
 
