@@ -19,16 +19,18 @@ public:
 	UYANode();
 
 	
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "Node Data")
 		TArray<UYANode*> GetChildren();
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "Node Data")
 		TArray<UYANode*> GetParents();
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		FText InternalGetNodeTitle();
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		bool HasInputPins();
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		bool HasOutputPins();
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
+		UYANode* GetNodePointer();
 
 
 	virtual void SetGraph(UYAGraph* InGraph);

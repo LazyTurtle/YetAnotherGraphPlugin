@@ -22,14 +22,16 @@ class YETOTHERGRAPHASSETS_API UYAGraph : public UObject
 public:
 	UYAGraph();
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
 		TArray<UYANode*>Nodes;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
 		TMap<FString, UYANode*>NamedNodes;
 	
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "Graph Data")
 		TArray<UStartNode*> GetStartingNodes();
+
+
 
 
 

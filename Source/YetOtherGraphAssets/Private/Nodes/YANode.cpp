@@ -8,6 +8,11 @@ UYANode::UYANode()
 	DefaultNodeTitle = LOCTEXT("Node Title", "Node");
 }
 
+UYANode * UYANode::GetNodePointer_Implementation()
+{
+	return this;
+}
+
 void UYANode::SetGraph(UYAGraph * InGraph)
 {
 	Graph = InGraph;
@@ -27,7 +32,12 @@ FText UYANode::GetNodeTitle()
 
 TArray<UYANode*> UYANode::GetChildren()
 {
-	return ChildNodes;
+	TArray<UYANode*>ReturnArray;
+	for (UYANode* Node : ChildNodes)
+	{
+		ReturnArray.Add(Node->GetNodePointer());
+	}
+	return ReturnArray;
 }
 
 TArray<UYANode*> UYANode::GetParents()
