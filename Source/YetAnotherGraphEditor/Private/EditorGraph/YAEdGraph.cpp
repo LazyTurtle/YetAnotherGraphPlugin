@@ -3,8 +3,7 @@
 #include "YetAnotherEdGraphNode.h"
 #include "EditorLogger.h"
 #include "EdGraph/EdGraphPin.h"
-
-UYAEdGraph::UYAEdGraph(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer){}
+#include "YAGraph.h"
 
 bool UYAEdGraph::IsNameUnique(const FText & InName)
 {
@@ -23,6 +22,12 @@ bool UYAEdGraph::IsNameUnique(const FText & InName)
 		}
 	}
 	return bUnique;
+}
+
+void UYAEdGraph::SaveGraph()
+{
+	LinkAssetNodes();
+	MapNamedNodes();
 }
 
 void UYAEdGraph::ClearOldLinks()
@@ -90,4 +95,25 @@ void UYAEdGraph::RefreshNodes()
 		if (UYetAnotherEdGraphNode* YANode = Cast<UYetAnotherEdGraphNode>(Node))
 			YANode->UpdateVisualNode();
 	}
+}
+
+void UYAEdGraph::MapNamedNodes()
+{
+	UYAGraph* Graph = GetGraphAsset();
+	Graph->NamedNodes.Empty();
+
+	for (UEdGraphNode* Node : Nodes)
+	{
+		if (UYetAnotherEdGraphNode* YANode = Cast<UYetAnotherEdGraphNode>(Node))
+		{
+			FText Name = YANode->GetEdNodeName();
+			if (!Name.IsEmpty())
+				Graph->NamedNodes.Add(Name.ToString(), YANode->AssetNode);
+		}
+	}
+}
+
+UYAGraph * UYAEdGraph::GetGraphAsset()
+{
+	return Cast<UYAGraph>(GetOuter());
 }

@@ -24,10 +24,15 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 		TArray<UYANode*>Nodes;
+
+	UPROPERTY(BlueprintReadOnly)
+		TMap<FString, UYANode*>NamedNodes;
 	
 	UFUNCTION(BlueprintPure)
 		TArray<UStartNode*> GetStartingNodes();
-	
+
+
+
 #if WITH_EDITORONLY_DATA
 
 public:

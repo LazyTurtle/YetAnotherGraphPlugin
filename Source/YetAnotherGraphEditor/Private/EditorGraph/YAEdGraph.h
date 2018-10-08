@@ -9,16 +9,20 @@
 /**
  * 
  */
+class UYAGraph;
+
 UCLASS()
 class UYAEdGraph : public UEdGraph
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 	
 public:
 
 	virtual bool IsNameUnique(const FText& InName);
+	virtual void SaveGraph();
 	virtual void ClearOldLinks();
 	virtual void LinkAssetNodes();
 	virtual void RefreshNodes();
-	
+	virtual void MapNamedNodes();
+	virtual UYAGraph* GetGraphAsset();
 };

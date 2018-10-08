@@ -116,7 +116,7 @@ void FYetAnotherGraphEditorToolkit::InitGraphAssetEditor(const EToolkitMode::Typ
 	FGraphEditorCommands::Register();
 	BindToolkitCommands();
 
-	TSharedRef<FTabManager::FLayout>Layout = FTabManager::NewLayout("Layout_1")
+	TSharedRef<FTabManager::FLayout>Layout = FTabManager::NewLayout("LayoutName")
 		->AddArea
 		(
 			FTabManager::NewPrimaryArea()
@@ -165,7 +165,7 @@ void FYetAnotherGraphEditorToolkit::SaveAsset_Execute()
 	if (GraphAsset && GraphAsset->EdGraph)
 	{
 		UYAEdGraph* EdGraph = Cast<UYAEdGraph>(GraphAsset->EdGraph);
-		EdGraph->LinkAssetNodes();
+		EdGraph->SaveGraph();
 	}
 	FAssetEditorToolkit::SaveAsset_Execute();
 }

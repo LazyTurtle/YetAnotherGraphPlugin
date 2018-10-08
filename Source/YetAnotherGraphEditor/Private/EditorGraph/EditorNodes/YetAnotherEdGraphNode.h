@@ -40,9 +40,6 @@ public:
 
 	virtual TSharedPtr<SWidget> GetContentWidget();
 
-	virtual void SetAssetNodeClass(TSubclassOf<UYANode> InNodeClass);
-	virtual TSubclassOf<UYANode> GetAssetNodeClass();
-
 	virtual void UpdateVisualNode();
 
 protected:
@@ -55,10 +52,9 @@ public:
 
 	UPROPERTY(Instanced)
 		UYANode* AssetNode = nullptr;
+
+private:
 	UPROPERTY()
-		FText EdNodeName = FText();
-
-
-	TSubclassOf<UYANode>AssetClass;
+		FText EdNodeName;
 
 };

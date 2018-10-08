@@ -31,16 +31,6 @@ TSharedPtr<SWidget> UYetAnotherEdGraphNode::GetContentWidget()
 	return View;
 }
 
-void UYetAnotherEdGraphNode::SetAssetNodeClass(TSubclassOf<UYANode> InNodeClass)
-{
-	AssetClass = InNodeClass;
-}
-
-TSubclassOf<UYANode> UYetAnotherEdGraphNode::GetAssetNodeClass()
-{
-	return AssetClass;
-}
-
 void UYetAnotherEdGraphNode::UpdateVisualNode()
 {
 	SlateNode->UpdateGraphNode();
