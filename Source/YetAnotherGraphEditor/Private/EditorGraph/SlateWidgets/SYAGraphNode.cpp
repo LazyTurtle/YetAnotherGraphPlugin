@@ -52,10 +52,7 @@ void SYAGraphNode::UpdateGraphNode()
                         + SVerticalBox::Slot()
                         .AutoHeight()
                         [
-                            SNew(SBox)
-                            [
-                                SAssignNew(LeftNodeBox, SVerticalBox)
-                            ]
+                            SAssignNew(LeftNodeBox, SVerticalBox)
                         ]
                         + SVerticalBox::Slot()
                         .HAlign(HAlign_Center)
@@ -87,10 +84,7 @@ void SYAGraphNode::UpdateGraphNode()
                         + SVerticalBox::Slot()
                         .AutoHeight()
                         [
-                            SNew(SBox)
-                            [
-                                SAssignNew(RightNodeBox, SVerticalBox)
-                            ]
+                            SAssignNew(RightNodeBox, SVerticalBox)
                         ]
                     ]
 				]
