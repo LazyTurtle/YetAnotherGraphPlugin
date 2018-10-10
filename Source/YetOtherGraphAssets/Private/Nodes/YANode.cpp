@@ -13,6 +13,11 @@ UYANode * UYANode::GetNodePointer_Implementation()
 	return this;
 }
 
+FText UYANode::GetCategory_Implementation()
+{
+    return LOCTEXT("Node Category", "Base Nodes");;
+}
+
 void UYANode::SetGraph(UYAGraph * InGraph)
 {
 	Graph = InGraph;
@@ -23,11 +28,9 @@ UYAGraph * UYANode::GetGraph()
 	return Graph;
 }
 
-FText UYANode::GetNodeTitle()
+FText UYANode::GetNodeTitle_Implementation()
 {
-	FText Title = InternalGetNodeTitle();
-
-	return Title.IsEmpty() ? LOCTEXT("Node Title", "Node") : Title;
+	return DefaultNodeTitle.IsEmpty() ? LOCTEXT("Node Title", "Node") : DefaultNodeTitle;
 }
 
 TArray<UYANode*> UYANode::GetChildren()
@@ -43,11 +46,6 @@ TArray<UYANode*> UYANode::GetChildren()
 TArray<UYANode*> UYANode::GetParents()
 {
 	return ParentNodes;
-}
-
-FText UYANode::InternalGetNodeTitle_Implementation()
-{
-	return DefaultNodeTitle;
 }
 
 bool UYANode::HasInputPins_Implementation()

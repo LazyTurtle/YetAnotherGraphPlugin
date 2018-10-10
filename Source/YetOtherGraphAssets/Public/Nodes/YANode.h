@@ -21,16 +21,27 @@ public:
 	
 	UFUNCTION(BlueprintPure, Category = "Node Data")
 		TArray<UYANode*> GetChildren();
+
 	UFUNCTION(BlueprintPure, Category = "Node Data")
 		TArray<UYANode*> GetParents();
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
-		FText InternalGetNodeTitle();
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
+	    FText GetNodeTitle();
+        virtual FText GetNodeTitle_Implementation();
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		bool HasInputPins();
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		bool HasOutputPins();
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Node Data")
 		UYANode* GetNodePointer();
+        virtual UYANode* GetNodePointer_Implementation();
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
+        FText GetCategory();
+        virtual FText GetCategory_Implementation();
 
 
 	virtual void SetGraph(UYAGraph* InGraph);
@@ -43,7 +54,8 @@ public:
 	virtual bool RemoveLinkedNode(UYANode* NodeToRemove);
 	virtual bool RemoveNodeFromParents(UYANode* NodeToRemove);
 	virtual bool RemoveNodeFromChilds(UYANode* NodeToRemove);
-	virtual FText GetNodeTitle();
+
+
 
 protected:
 	UPROPERTY()
@@ -52,9 +64,11 @@ protected:
 		TArray<UYANode*> ParentNodes;
 	UPROPERTY()
 		TArray<UYANode*> ChildNodes;
-
+    UPROPERTY()
 	bool bHasInputPins = true;
+    UPROPERTY()
 	bool bHasOutputPins = true;
+    UPROPERTY()
 	FText DefaultNodeTitle = FText();
 };
 
