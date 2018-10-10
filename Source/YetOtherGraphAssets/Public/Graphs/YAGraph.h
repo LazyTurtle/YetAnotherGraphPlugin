@@ -28,6 +28,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
 		TMap<FString, UYANode*>NamedNodes;
 	
+
+
 	UFUNCTION(BlueprintPure, Category = "Graph Data")
 		TArray<UStartNode*> GetStartingNodes();
 

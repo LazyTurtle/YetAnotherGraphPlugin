@@ -3,6 +3,7 @@
 #include "YetAnotherEdGraphNode.h"
 #include "SGraphPin.h"
 #include "SYetAnotherGraphPin.h"
+#include "EditorLogger.h"
 
 #define LOCTEXT_NAMESPACE "SYAGraphNode"
 
@@ -35,53 +36,70 @@ void SYAGraphNode::UpdateGraphNode()
 		[
 			SNew(SBorder)
 			.BorderImage(FEditorStyle::GetBrush("Graph.StateNode.Body"))
-		.Padding(FMargin(10.0f))
-		.BorderBackgroundColor(FLinearColor(0.1f, 0.1f, 0.1f))
-		[
-			SNew(SVerticalBox)
-
-			+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			SNew(SBox)
+			.Padding(FMargin(10.0f))
+			.BorderBackgroundColor(FLinearColor(0.1f, 0.1f, 0.1f))
 			[
-				SAssignNew(LeftNodeBox, SVerticalBox)
+				SAssignNew(ErrorBorder,SBorder)
+				.BorderImage(FEditorStyle::GetBrush("Graph.StateNode.Body"))
+				.BorderBackgroundColor(FLinearColor(0.1f, 0.1f, 0.1f))
+				[
+					SNew(SBorder)
+                    .BorderImage(FEditorStyle::GetBrush("Graph.StateNode.Body"))
+                    .Padding(FMargin(10.0f))
+                    .BorderBackgroundColor(FLinearColor(0.1f, 0.1f, 0.1f))
+                    [
+                        SNew(SVerticalBox)
+                        + SVerticalBox::Slot()
+                        .AutoHeight()
+                        [
+                            SNew(SBox)
+                            [
+                                SAssignNew(LeftNodeBox, SVerticalBox)
+                            ]
+                        ]
+                        + SVerticalBox::Slot()
+                        .HAlign(HAlign_Center)
+                        .AutoHeight()
+                        [
+                            SAssignNew(NodeHeader, STextBlock)
+                        ]
+                        + SVerticalBox::Slot()
+                        .HAlign(HAlign_Center)
+                        .AutoHeight()
+                        [
+                            SAssignNew(InlineEditableText, SInlineEditableTextBlock)
+                            .Style(FEditorStyle::Get(), "Graph.StateNode.NodeTitleInlineEditableText")
+                            .Text(NodeTitle.Get(), &SNodeTitle::GetHeadTitle)
+                            .IsReadOnly(this, &SYAGraphNode::IsNameReadOnly)
+                            .OnTextCommitted(this, &SYAGraphNode::OnNameTextCommited)
+                            .OnVerifyTextChanged(this, &SYAGraphNode::OnVerifyNameTextChanged)
+                        ]
+                        + SVerticalBox::Slot()
+                        .AutoHeight()
+                        [
+                            NodeTitle.ToSharedRef()
+                        ]
+                        + SVerticalBox::Slot()
+                        .AutoHeight()
+                        [
+                            SAssignNew(ContentWidget, SVerticalBox)
+                        ]
+                        + SVerticalBox::Slot()
+                        .AutoHeight()
+                        [
+                            SNew(SBox)
+                            [
+                                SAssignNew(RightNodeBox, SVerticalBox)
+                            ]
+                        ]
+                    ]
+				]
 			]
-		]
-	+ SVerticalBox::Slot()
-		.HAlign(HAlign_Center)
-		.AutoHeight()
-		[
-			SAssignNew(InlineEditableText, SInlineEditableTextBlock)
-			.Style(FEditorStyle::Get(), "Graph.StateNode.NodeTitleInlineEditableText")
-		.Text(NodeTitle.Get(), &SNodeTitle::GetHeadTitle)
-		.IsReadOnly(this, &SYAGraphNode::IsNameReadOnly)
-		.OnTextCommitted(this, &SYAGraphNode::OnNameTextCommited)
-		.OnVerifyTextChanged(this, &SYAGraphNode::OnVerifyNameTextChanged)
-		]
-	+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			NodeTitle.ToSharedRef()
-		]
-	+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			SAssignNew(ContentWidget, SVerticalBox)
-		]
-	+ SVerticalBox::Slot()
-		.AutoHeight()
-		[
-			SNew(SBox)
-			[
-				SAssignNew(RightNodeBox, SVerticalBox)
-			]
-		]
-		]
 		];
 
 	CreatePinWidgets();
 	CreateContent();
+    CreateHeader();
 }
 
 void SYAGraphNode::CreatePinWidgets()
@@ -144,6 +162,7 @@ void SYAGraphNode::OnNameTextCommited(const FText & InText, ETextCommit::Type Co
 		if (UEdNode->RenameUniqueNode(InText))
 		{
 			UpdateGraphNode();
+            NodeHeader.Get()->SetVisibility(EVisibility::Visible);
 			SGraphNode::OnNameTextCommited(InText, CommitInfo);
 		}
 
@@ -157,5 +176,11 @@ void SYAGraphNode::CreateContent()
 			Node->GetContentWidget().ToSharedRef()
 		];
 }
+void SYAGraphNode::CreateHeader()
+{
+    NodeHeader.Get()->SetText(GraphNode->GetNodeTitle(ENodeTitleType::MenuTitle));
+    NodeHeader.Get()->SetVisibility(EVisibility::Collapsed);
+}
+
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

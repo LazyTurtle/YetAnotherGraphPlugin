@@ -22,9 +22,12 @@ public:
 	bool IsNameReadOnly() const override;
 	void OnNameTextCommited(const FText& InText, ETextCommit::Type CommitInfo);
 
-private:
+protected:
 
 	TSharedPtr<SVerticalBox> ContentWidget;
-	TSharedPtr<IDetailsView> View;
+	TSharedPtr<SBorder> ErrorBorder;
+    TSharedPtr<STextBlock> NodeHeader;
+
 	virtual void CreateContent();
+    virtual void CreateHeader();
 };

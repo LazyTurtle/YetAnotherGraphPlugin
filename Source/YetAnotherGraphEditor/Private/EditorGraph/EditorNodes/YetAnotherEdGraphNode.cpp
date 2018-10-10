@@ -57,8 +57,14 @@ void UYetAnotherEdGraphNode::AllocateDefaultPins()
 
 FText UYetAnotherEdGraphNode::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
-	FText Title = GetEdNodeName();
-	return Title.IsEmpty() ? AssetNode->GetNodeTitle() : Title;
+    switch (TitleType)
+    {
+    case ENodeTitleType::Type::MenuTitle:
+        return AssetNode->GetNodeTitle();
+    default:
+        FText Title = GetEdNodeName();
+        return Title.IsEmpty() ? AssetNode->GetNodeTitle() : Title;
+    }
 }
 
 void UYetAnotherEdGraphNode::PrepareForCopying()
