@@ -6,6 +6,7 @@
 UYANode::UYANode()
 {
 	DefaultNodeTitle = LOCTEXT("Node Title", "Node");
+    Category= LOCTEXT("Node Category", "Base Nodes");
 }
 
 UYANode * UYANode::GetNodePointer_Implementation()
@@ -15,7 +16,7 @@ UYANode * UYANode::GetNodePointer_Implementation()
 
 FText UYANode::GetCategory_Implementation()
 {
-    return LOCTEXT("Node Category", "Base Nodes");;
+    return Category.IsEmpty() ? LOCTEXT("Node Category", "Base Nodes") : Category;
 }
 
 void UYANode::SetGraph(UYAGraph * InGraph)
@@ -38,7 +39,8 @@ TArray<UYANode*> UYANode::GetChildren()
 	TArray<UYANode*>ReturnArray;
 	for (UYANode* Node : ChildNodes)
 	{
-		ReturnArray.Add(Node->GetNodePointer());
+        auto* object = Node->GetNodePointer();
+		if(object)ReturnArray.Add(object);
 	}
 	return ReturnArray;
 }

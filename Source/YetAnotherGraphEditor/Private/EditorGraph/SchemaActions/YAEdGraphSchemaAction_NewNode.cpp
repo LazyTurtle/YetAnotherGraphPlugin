@@ -17,18 +17,21 @@ UEdGraphNode * FYAEdGraphSchemaAction_NewNode::PerformAction(UEdGraph * ParentGr
 
 	UYANode* AssetNode = GraphAsset->SpawnNodeInsideGraph<UYANode>(NewNodeClass);
 
+    UEdGraphNode* EditorNode=CreateEditorNode(ParentGraph,bSelectNewNode,AssetNode);
+	
+    EditorNode->AllocateDefaultPins();
+    EditorNode->AutowireNewNode(FromPin);
+    EditorNode->NodePosX = Location.X;
+    EditorNode->NodePosY = Location.Y;
 
-	FGraphNodeCreator<UYetAnotherEdGraphNode>Creator(*ParentGraph);
-	UYetAnotherEdGraphNode* EdNode = Creator.CreateNode(bSelectNewNode);
-	EdNode->SetAssetNode(AssetNode);
-
-	EdNode->AllocateDefaultPins();
-	EdNode->AutowireNewNode(FromPin);
-	Creator.Finalize();
-
-	EdNode->NodePosX = Location.X;
-	EdNode->NodePosY = Location.Y;
-
-	return CastChecked<UEdGraphNode>(EdNode);
+	return EditorNode;
+}
+UEdGraphNode * FYAEdGraphSchemaAction_NewNode::CreateEditorNode(UEdGraph * ParentGraph, bool bSelectNewNode, UYANode* AssetNode)
+{
+    FGraphNodeCreator<UYetAnotherEdGraphNode>Creator(*ParentGraph);
+    UYetAnotherEdGraphNode* EdNode = Creator.CreateNode(bSelectNewNode);
+    EdNode->SetAssetNode(AssetNode);
+    Creator.Finalize();
+    return EdNode;
 }
 #undef LOCTEXT_NAMESPACE

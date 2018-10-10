@@ -22,7 +22,7 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 	FText ToolTip = LOCTEXT("NewYetAnotherNodeTooltip", "Add a {NodeName} to the graph.");
 	FText MenuDesc = LOCTEXT("NewYetAnotherNodeDescription", "{NodeName}");
 	
-	EDLLog("Gathering C++ classes.");
+	//Gathering C++ classes
 
 	FCategorizedGraphActionListBuilder BaseBuilder(TEXT("Base Nodes"));
 	TArray<TSubclassOf<UYANode>> BasicNodes;
@@ -41,7 +41,7 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 
 	ContextMenuBuilder.Append(BaseBuilder);
 	
-	EDLLog("Gathering child blueprints.");
+	//Gathering child blueprints
 
 	FYetAnotherGraphEditorModule& YAModule = FModuleManager::GetModuleChecked<FYetAnotherGraphEditorModule>("YetAnotherGraphEditor");
 	TSharedPtr<FYetAnotherNodeClassHelper> Helper = YAModule.GetHelper();

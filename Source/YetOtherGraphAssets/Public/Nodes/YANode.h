@@ -8,7 +8,7 @@
 
 class UYAGraph;
 /**
- * 
+ * Base abstract class for every node of the graph.
  */
 UCLASS(Abstract, Blueprintable, BlueprintType)
 class YETOTHERGRAPHASSETS_API UYANode : public UObject
@@ -70,6 +70,10 @@ protected:
 	bool bHasOutputPins = true;
     UPROPERTY()
 	FText DefaultNodeTitle = FText();
+    UPROPERTY()
+    FText Category = FText();
+
+
 };
 
 #undef LOCTEXT_NAMESPACE

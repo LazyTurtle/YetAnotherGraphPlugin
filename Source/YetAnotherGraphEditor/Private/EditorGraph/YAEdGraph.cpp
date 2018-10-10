@@ -51,29 +51,25 @@ void UYAEdGraph::LinkAssetNodes()
 			UYANode* NodeAsset = EdNode->AssetNode;
 			if (NodeAsset != nullptr)
 			{
+
 				TArray<UEdGraphPin*>& EdPinsParent = EdNode->Pins;
-				
+				TArray<UEdGraphNode*>Children;
+
 				for (UEdGraphPin* Pin : EdPinsParent)
 				{
 					//Take only the output pins
 					if (Pin->Direction == EEdGraphPinDirection::EGPD_Output)
 					{
+
 						TArray<UEdGraphPin*>& EdPinsChildren = Pin->LinkedTo;
 						for (UEdGraphPin* LinkedPin : EdPinsChildren)
-						{
-							UYetAnotherEdGraphNode* Child = Cast<UYetAnotherEdGraphNode>(LinkedPin->GetOwningNode());
-							if (Child)
-							{
-								NodeAsset->LinkArgumentNodeAsChild(Child->AssetNode);
-							}
-							else
-							{
-								EDELog("The pin is not linked to anything.");
-							}
-						}
+						    Children.Add(LinkedPin->GetOwningNode());
+	
 					}
 
 				}
+
+                EdNode->SaveNodesAsChildren(Children);
 			}
 			else
 			{
@@ -101,14 +97,18 @@ void UYAEdGraph::MapNamedNodes()
 {
 	UYAGraph* Graph = GetGraphAsset();
 	Graph->NamedNodes.Empty();
+    Graph->NodesNames.Empty();
 
 	for (UEdGraphNode* Node : Nodes)
 	{
 		if (UYetAnotherEdGraphNode* YANode = Cast<UYetAnotherEdGraphNode>(Node))
 		{
 			FText Name = YANode->GetEdNodeName();
-			if (!Name.IsEmpty())
-				Graph->NamedNodes.Add(Name.ToString(), YANode->AssetNode);
+            if (!Name.IsEmpty())
+            {
+                Graph->NamedNodes.Add(Name.ToString(), YANode->AssetNode);
+                Graph->NodesNames.Add(YANode->AssetNode, Name.ToString());
+            }
 		}
 	}
 }

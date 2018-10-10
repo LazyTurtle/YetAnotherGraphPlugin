@@ -6,6 +6,7 @@
 #include "IDetailsView.h"
 #include "PropertyEditorModule.h"
 #include "ModuleManager.h"
+#include "EditorLogger.h"
 
 #define LOCTEXT_NAMESPACE "YetAnotherEdGraphNode"
 
@@ -34,6 +35,16 @@ TSharedPtr<SWidget> UYetAnotherEdGraphNode::GetContentWidget()
 void UYetAnotherEdGraphNode::UpdateVisualNode()
 {
 	SlateNode->UpdateGraphNode();
+}
+
+void UYetAnotherEdGraphNode::SaveNodesAsChildren(TArray<UEdGraphNode*> Children)
+{
+    for (UEdGraphNode* Child : Children)
+    {
+        UYetAnotherEdGraphNode* Node = Cast<UYetAnotherEdGraphNode>(Child);
+        if (Node)
+            AssetNode->LinkArgumentNodeAsChild(Node->AssetNode);
+    }
 }
 
 bool UYetAnotherEdGraphNode::HasOutputPins()

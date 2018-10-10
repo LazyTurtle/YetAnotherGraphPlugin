@@ -27,7 +27,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
 		TMap<FString, UYANode*>NamedNodes;
-	
+
+    UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
+        TMap<UYANode*, FString>NodesNames;
 
 
 	UFUNCTION(BlueprintPure, Category = "Graph Data")
