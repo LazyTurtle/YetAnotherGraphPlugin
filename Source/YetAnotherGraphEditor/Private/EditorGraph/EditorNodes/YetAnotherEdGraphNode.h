@@ -42,7 +42,7 @@ public:
 
 	virtual void UpdateVisualNode();
 
-    virtual void SaveNodesAsChildren(TArray<UEdGraphNode*>Children);
+    virtual void SaveNodesAsChildren(TArray<UEdGraphNode*>& Children);
 
 protected:
 

@@ -37,7 +37,7 @@ void UYetAnotherEdGraphNode::UpdateVisualNode()
 	SlateNode->UpdateGraphNode();
 }
 
-void UYetAnotherEdGraphNode::SaveNodesAsChildren(TArray<UEdGraphNode*> Children)
+void UYetAnotherEdGraphNode::SaveNodesAsChildren(TArray<UEdGraphNode*>& Children)
 {
     for (UEdGraphNode* Child : Children)
     {
