@@ -19,7 +19,7 @@ UEdGraphNode * FYAEdGraphSchemaAction_NewNode::PerformAction(UEdGraph * ParentGr
 
     UEdGraphNode* EditorNode=CreateEditorNode(ParentGraph,bSelectNewNode,AssetNode);
 	
-    EditorNode->AllocateDefaultPins();
+    //EditorNode->AllocateDefaultPins();   for some reason it was called 2 times even if I only call it here
     EditorNode->AutowireNewNode(FromPin);
     EditorNode->NodePosX = Location.X;
     EditorNode->NodePosY = Location.Y;

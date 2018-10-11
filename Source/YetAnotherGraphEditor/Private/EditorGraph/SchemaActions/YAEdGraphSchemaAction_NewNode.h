@@ -13,7 +13,7 @@ USTRUCT()
 struct FYAEdGraphSchemaAction_NewNode : public FEdGraphSchemaAction
 {
 public:
-	GENERATED_USTRUCT_BODY();
+	GENERATED_USTRUCT_BODY()
 
 	FYAEdGraphSchemaAction_NewNode() :FEdGraphSchemaAction(), NewNodeClass(nullptr) {}
 	FYAEdGraphSchemaAction_NewNode(FText InNodeCategory, FText InMenuDesc, FText InToolTip, const int32 InGrouping, TSubclassOf<UYANode> InNodeClass) :FEdGraphSchemaAction(InNodeCategory, InMenuDesc, InToolTip, InGrouping), NewNodeClass(InNodeClass) {}

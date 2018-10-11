@@ -11,6 +11,8 @@
 #include "YetAnotherNodeClassHelper.h"
 #include "ModuleManager.h"
 #include "YetAnotherGraphEditor.h"
+#include "FlowControlNode.h"
+#include "FlowControlSchemaAction_NewNode.h"
 
 #define LOCTEXT_NAMESPACE "YetAnotherEdGraphSchema"
 
@@ -29,6 +31,28 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 
 	for (TObjectIterator<UClass> It; It; ++It)
 	{
+        if (It->IsChildOf(UYANode::StaticClass()))
+        {
+            if (!It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
+            {
+                FFormatNamedArguments Arguments;
+                Arguments.Add(TEXT("NodeName"), It->GetDisplayNameText());
+                TSharedPtr<FEdGraphSchemaAction> NewNodeAction;
+
+                if (It->IsChildOf(UFlowControlNode::StaticClass()))
+                {
+                    NewNodeAction = MakeShareable(new FFlowControlSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, *It));
+                }
+                else
+                {
+                    NewNodeAction = MakeShareable(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, *It));
+                }
+
+                BaseBuilder.AddAction(NewNodeAction);
+                EDLLog("%s added", *It->GetDisplayNameText().ToString());
+            }
+        }
+/*
 		if (It->IsChildOf(UYANode::StaticClass()) && !It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
 		{
 			FFormatNamedArguments Arguments;
@@ -37,6 +61,7 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 			BaseBuilder.AddAction(NewNodeAction);
 			EDLLog("%s added", *It->GetDisplayNameText().ToString());
 		}
+*/
 	}
 
 	ContextMenuBuilder.Append(BaseBuilder);
@@ -48,17 +73,29 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 
 	TArray<FYetAnotherNodeClassData> BlueprintClasses;
 	Helper->GatherClasses(USimpleNode::StaticClass(), BlueprintClasses);
+    Helper->GatherClasses(UFlowControlNode::StaticClass(), BlueprintClasses);
 
 	FCategorizedGraphActionListBuilder BlueprintBuilder(TEXT("User Defined Nodes"));
 
 	for (auto& BlueprintClassData : BlueprintClasses)
 	{
+        EDWLog("%s", *BlueprintClassData.GetDisplayName());
 		if (!BlueprintClassData.GetClass()->HasAnyClassFlags(CLASS_Native))
 		{
 			FFormatNamedArguments Arguments;
 			Arguments.Add(TEXT("NodeName"), BlueprintClassData.GetClass()->GetDisplayNameText());
-			TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
-			BlueprintBuilder.AddAction(NewNodeAction);
+            TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction;
+			
+            if (BlueprintClassData.GetClass()->IsChildOf(UFlowControlNode::StaticClass()))
+            {
+                NewNodeAction = MakeShareable(new FFlowControlSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
+            }
+            else
+            {
+                NewNodeAction = MakeShareable(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
+            }
+
+            BlueprintBuilder.AddAction(NewNodeAction);
 			EDLLog("%s", *BlueprintClassData.GetClass()->GetName());
 		}
 	}
