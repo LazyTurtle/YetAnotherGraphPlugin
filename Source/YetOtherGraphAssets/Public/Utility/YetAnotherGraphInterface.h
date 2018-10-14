@@ -7,7 +7,7 @@
 #include "YetAnotherGraphInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI)
+UINTERFACE(Blueprintable)
 class UYetAnotherGraphInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -23,17 +23,24 @@ class YETOTHERGRAPHASSETS_API IYetAnotherGraphInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface");
-    void SetBooleanVariable(FName BooleanName);
+    // The boolean returns shouldn't be used and they're here only to aggregate all the functions under the "Intefaces" section of blueprints
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface");
+
+    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    bool SetBooleanVariable(FName BooleanName); // unused return
+    virtual bool SetBooleanVariable_Implementation(FName BooleanName) { return false; }
+
+    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
     bool GetBooleanVariable(FName BooleanName) const;
+    virtual bool GetBooleanVariable_Implementation(FName BooleanName) const { return false; }
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface");
-    void SetIntegerVariable(FName IntegerName, int32 Value);
+    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    bool SetIntegerVariable(FName IntegerName, int32 Value); // unused return
+    virtual bool SetIntegerVariable_Implementation(FName IntegerName, int32 Value) { return false; }
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface");
+    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
     int32 GetIntegerVariable(FName IntegerName) const;
+    virtual int32 GetIntegerVariable_Implementation(FName IntegerName) const { return 0; }
 
 
 
