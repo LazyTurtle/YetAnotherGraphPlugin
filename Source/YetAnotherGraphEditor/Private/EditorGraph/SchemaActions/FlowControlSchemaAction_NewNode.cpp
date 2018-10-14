@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "FlowControlSchemaAction_NewNode.h"
 #include "EdGraph/EdGraph.h"
 

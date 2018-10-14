@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "BinarySelectNode.h"
 #include "Logger.h"
 #include "YAGraph.h"

@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "YetAnotherGraphEditorToolkit.h"
 #include "EditorLogger.h"
 #include "PropertyEditorModule.h"

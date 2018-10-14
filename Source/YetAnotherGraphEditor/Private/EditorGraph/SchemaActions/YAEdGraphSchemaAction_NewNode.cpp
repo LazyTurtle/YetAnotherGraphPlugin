@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "YAEdGraphSchemaAction_NewNode.h"
 #include "YAGraph.h"
 #include "YetAnotherEdGraphNode.h"

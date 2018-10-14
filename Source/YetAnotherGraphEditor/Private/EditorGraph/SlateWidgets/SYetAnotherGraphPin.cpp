@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "SYetAnotherGraphPin.h"
 
 void SYetAnotherGraphPin::Construct(const FArguments & InArgs, UEdGraphPin * InPin)

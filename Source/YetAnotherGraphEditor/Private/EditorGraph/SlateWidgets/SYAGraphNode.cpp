@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "SYAGraphNode.h"
 #include "Slate.h"
 #include "YetAnotherEdGraphNode.h"

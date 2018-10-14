@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "YetAnotherEdGraphNode.h"
 #include "YANode.h"
 #include "YAGraph.h"

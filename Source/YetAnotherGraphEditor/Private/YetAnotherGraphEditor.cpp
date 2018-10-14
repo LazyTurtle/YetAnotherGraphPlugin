@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "YetAnotherGraphEditor.h"
 #include "ModuleManager.h"
 #include "IAssetTools.h"

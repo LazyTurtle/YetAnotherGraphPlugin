@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "MultiNodeSelector.h"
 #include "Logger.h"
 

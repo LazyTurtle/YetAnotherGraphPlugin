@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 #include "SimpleNode.h"
 
 #define LOCTEXT_NAMESPACE "SimpleNode"

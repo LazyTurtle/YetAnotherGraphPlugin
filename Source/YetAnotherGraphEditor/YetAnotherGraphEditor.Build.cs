@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Jhonny Hueller
 using UnrealBuildTool;
 
 public class YetAnotherGraphEditor : ModuleRules
