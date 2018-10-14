@@ -5,9 +5,11 @@
 
 UYAGraph::UYAGraph()
 {
+    
 #if WITH_EDITORONLY_DATA
 	EdGraph = nullptr;
 #endif
+
 }
 
 TArray<UStartNode*> UYAGraph::GetStartingNodes()

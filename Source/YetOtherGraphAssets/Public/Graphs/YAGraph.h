@@ -37,8 +37,6 @@ public:
 
 
 
-
-
 #if WITH_EDITORONLY_DATA
 
 public:
