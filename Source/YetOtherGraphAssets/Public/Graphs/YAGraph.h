@@ -32,9 +32,14 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Graph Data")
         TMap<UYANode*, FString>NodesNames;
 
+    UPROPERTY(BlueprintReadWrite, Category = "Graph Data")
+        UObject* Owner;
 
 	UFUNCTION(BlueprintPure, Category = "Graph Data")
 		TArray<UStartNode*> GetStartingNodes();
+
+    UFUNCTION(BlueprintCallable, Category = "Graph Data")
+        void InitGraph(UObject* ParentObject);
 
 
 

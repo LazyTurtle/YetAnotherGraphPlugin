@@ -24,6 +24,11 @@ TArray<UStartNode*> UYAGraph::GetStartingNodes()
 	return NodesArray;
 }
 
+void UYAGraph::InitGraph(UObject * ParentObject)
+{
+    Owner = ParentObject;
+}
+
 #if WITH_EDITORONLY_DATA
 void UYAGraph::AddNode(UYANode * InNode)
 {

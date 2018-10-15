@@ -11,7 +11,7 @@
  * 
  */
 UCLASS(Abstract)
-class UMultiNodeSelector : public UFlowControlNode
+class YETOTHERGRAPHASSETS_API UMultiNodeSelector : public UFlowControlNode
 {
 	GENERATED_BODY()
 	

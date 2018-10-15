@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "YAGraph.h"
 
-#define LOCTEXT_NAMESPACE "UYANode"
+#define LOCTEXT_NAMESPACE "BinarySelectNode"
 
 UBinarySelectNode::UBinarySelectNode()
 {
