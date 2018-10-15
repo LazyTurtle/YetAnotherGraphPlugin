@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "Nodes/FlowControlNode.h"
+#include "YAGraph.h"
 #include "MultiNodeSelector.generated.h"
 
 #define LOCTEXT_NAMESPACE "MultiNodeSelector"
@@ -18,8 +19,8 @@ class YETOTHERGRAPHASSETS_API UMultiNodeSelector : public UFlowControlNode
 public:
 
     UFUNCTION(BlueprintNativeEvent, Category = "Multi Node Selector")
-        int32 IndexEvaluation();
-    virtual int32 IndexEvaluation_Implementation() { return 0; }
+    int32 IndexEvaluation(UObject* GraphOwner);
+    virtual int32 IndexEvaluation_Implementation(UObject* GraphOwner) { return 0; }
 
 
     //inherited from YANode

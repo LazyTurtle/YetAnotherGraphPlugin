@@ -22,6 +22,6 @@ public:
         FName VariableName;
 	
 	//Inherited from UMultiNodeSelector
-    int32 IndexEvaluation_Implementation() override;
+    int32 IndexEvaluation_Implementation(UObject* GraphOwner) override;
 
 };

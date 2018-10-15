@@ -12,10 +12,9 @@ UBooleanSelector::UBooleanSelector()
     DefaultNodeTitle = LOCTEXT("BooleanSelector", "Boolean Selector");
 }
 
-bool UBooleanSelector::BooleanEvaluation_Implementation()
+bool UBooleanSelector::BooleanEvaluation_Implementation(UObject* GraphOwner)
 {
     bool Result = false;
-    UObject* GraphOwner = Graph->Owner;
     if (GraphOwner->StaticClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
     {
         IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(GraphOwner);

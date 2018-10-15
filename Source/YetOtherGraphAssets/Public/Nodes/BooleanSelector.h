@@ -22,6 +22,6 @@ public:
     FName VariableName;
 	
 	//Inherited from BinarySelectNode
-    bool BooleanEvaluation_Implementation() override;
+    bool BooleanEvaluation_Implementation(UObject* GraphOwner) override;
 	
 };

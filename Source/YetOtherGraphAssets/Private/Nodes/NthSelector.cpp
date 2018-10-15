@@ -12,10 +12,9 @@ UNthSelector::UNthSelector()
     DefaultNodeTitle= LOCTEXT("NthSelector", "'Nth Selector");
 }
 
-int32 UNthSelector::IndexEvaluation_Implementation()
+int32 UNthSelector::IndexEvaluation_Implementation(UObject* GraphOwner)
 {
     int32 Result = 0;
-    UObject* GraphOwner = Graph->Owner;
     if (GraphOwner->StaticClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
     {
         IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(GraphOwner);

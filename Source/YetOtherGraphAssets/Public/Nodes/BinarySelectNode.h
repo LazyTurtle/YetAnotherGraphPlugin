@@ -17,8 +17,8 @@ public:
     UBinarySelectNode();
 
     UFUNCTION(BlueprintNativeEvent, Category = "Binary Selector")
-        bool BooleanEvaluation();
-    virtual bool BooleanEvaluation_Implementation() { return false; }
+        bool BooleanEvaluation(UObject* GraphOwner);
+    virtual bool BooleanEvaluation_Implementation(UObject* GraphOwner) { return false; }
 	
 
     //inherited from YANode

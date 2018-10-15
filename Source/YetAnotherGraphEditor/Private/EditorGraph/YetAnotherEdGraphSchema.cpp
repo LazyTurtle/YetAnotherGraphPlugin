@@ -53,16 +53,6 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
                 EDLLog("%s added", *It->GetDisplayNameText().ToString());
             }
         }
-/*
-		if (It->IsChildOf(UYANode::StaticClass()) && !It->HasAnyClassFlags(CLASS_Abstract) && It->HasAnyClassFlags(CLASS_Native))
-		{
-			FFormatNamedArguments Arguments;
-			Arguments.Add(TEXT("NodeName"), It->GetDisplayNameText());
-			TSharedPtr<FYAEdGraphSchemaAction_NewNode> NewNodeAction(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, *It));
-			BaseBuilder.AddAction(NewNodeAction);
-			EDLLog("%s added", *It->GetDisplayNameText().ToString());
-		}
-*/
 	}
 
 	ContextMenuBuilder.Append(BaseBuilder);
@@ -76,7 +66,7 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 	Helper->GatherClasses(USimpleNode::StaticClass(), BlueprintClasses);
     Helper->GatherClasses(UFlowControlNode::StaticClass(), BlueprintClasses);
 
-	FCategorizedGraphActionListBuilder BlueprintBuilder(TEXT("User Defined Nodes"));
+    FCategorizedGraphActionListBuilder BlueprintBuilder(TEXT("User Defined Nodes"));
 
 	for (auto& BlueprintClassData : BlueprintClasses)
 	{
@@ -89,11 +79,11 @@ void UYetAnotherEdGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder &
 			
             if (BlueprintClassData.GetClass()->IsChildOf(UFlowControlNode::StaticClass()))
             {
-                NewNodeAction = MakeShareable(new FFlowControlSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
+                NewNodeAction = MakeShareable(new FFlowControlSchemaAction_NewNode(BlueprintClassData.GetCategory(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
             }
             else
             {
-                NewNodeAction = MakeShareable(new FYAEdGraphSchemaAction_NewNode(FText(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
+                NewNodeAction = MakeShareable(new FYAEdGraphSchemaAction_NewNode(BlueprintClassData.GetCategory(), FText::Format(MenuDesc, Arguments), FText::Format(ToolTip, Arguments), 0, BlueprintClassData.GetClass()));
             }
 
             BlueprintBuilder.AddAction(NewNodeAction);
