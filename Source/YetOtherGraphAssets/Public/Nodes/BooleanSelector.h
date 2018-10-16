@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(meta = (Category = "FlowControl"))
 class YETOTHERGRAPHASSETS_API UBooleanSelector : public UBinarySelectNode
 {
     GENERATED_BODY()
@@ -19,7 +19,7 @@ public:
     UBooleanSelector();
 
     UPROPERTY(EditAnywhere, Category = "Boolean Selector")
-    FName VariableName;
+    FName Name;
 	
 	//Inherited from BinarySelectNode
     bool BooleanEvaluation_Implementation(UObject* GraphOwner) override;

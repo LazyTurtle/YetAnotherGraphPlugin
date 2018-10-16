@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(meta = (Category = "EmptyNodes"))
 class YETOTHERGRAPHASSETS_API UStartNode : public USimpleNode
 {
 	GENERATED_BODY()

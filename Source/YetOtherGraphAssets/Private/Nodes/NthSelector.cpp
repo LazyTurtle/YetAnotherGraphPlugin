@@ -19,7 +19,7 @@ int32 UNthSelector::IndexEvaluation_Implementation(UObject* GraphOwner)
     {
         IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(GraphOwner);
         if (Interface)
-            Result = Interface->GetIntegerVariable(VariableName);
+            Result = Interface->GetIntegerVariable(Index);
     }
     else
     {

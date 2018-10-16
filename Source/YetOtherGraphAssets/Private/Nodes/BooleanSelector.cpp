@@ -19,7 +19,7 @@ bool UBooleanSelector::BooleanEvaluation_Implementation(UObject* GraphOwner)
     {
         IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(GraphOwner);
         if (Interface)
-            Result = Interface->GetBooleanVariable(VariableName);
+            Result = Interface->GetBooleanVariable(Name);
     }
     else
     {

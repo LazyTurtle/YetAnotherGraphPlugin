@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(meta = (Category = "FlowControl"))
 class YETOTHERGRAPHASSETS_API UNthSelector : public UMultiNodeSelector
 {
 	GENERATED_BODY()
@@ -19,7 +19,7 @@ public:
     UNthSelector();
 
     UPROPERTY(EditAnywhere, Category = "Nth Selector")
-        FName VariableName;
+        FName Index;
 	
 	//Inherited from UMultiNodeSelector
     int32 IndexEvaluation_Implementation(UObject* GraphOwner) override;

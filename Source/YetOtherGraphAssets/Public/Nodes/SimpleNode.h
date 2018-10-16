@@ -10,7 +10,7 @@
 /**
  * Base node, used for storing information or change the topography of the graph
  */
-UCLASS()
+UCLASS(meta = (Category = "EmptyNodes"))
 class YETOTHERGRAPHASSETS_API USimpleNode : public UYANode
 {
 	GENERATED_BODY()

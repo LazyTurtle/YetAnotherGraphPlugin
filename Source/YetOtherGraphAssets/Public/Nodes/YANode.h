@@ -40,10 +40,6 @@ public:
 		UYANode* GetNodePointer();
         virtual UYANode* GetNodePointer_Implementation();
 
-    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
-        FText GetCategory();
-        virtual FText GetCategory_Implementation();
-
 
 	virtual void SetGraph(UYAGraph* InGraph);
 	virtual UYAGraph* GetGraph();

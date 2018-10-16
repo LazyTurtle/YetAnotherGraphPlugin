@@ -15,11 +15,6 @@ UYANode * UYANode::GetNodePointer_Implementation()
 	return this;
 }
 
-FText UYANode::GetCategory_Implementation()
-{
-    return Category.IsEmpty() ? LOCTEXT("Node Category", "Base Nodes") : Category;
-}
-
 void UYANode::SetGraph(UYAGraph * InGraph)
 {
 	Graph = InGraph;
