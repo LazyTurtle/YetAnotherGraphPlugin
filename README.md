@@ -30,7 +30,7 @@ The Plugin comes with 6 different node for basic graph creations. They are divid
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/EmptyNodes.png">
 </p>
 
-* Action Nodes: This are transparent nodes. In other words they aren't visible when navigating the graph using the function `GetChildren` and at their place there will be their subnode. Before returning the subnode they perform a blueprintable function. With the plugin there are 2 implementation that store a named variable and its value on the external `UObject` owner of the graph (for exchanging informations between graphs). If there isn't just a single subnode (there are 0 or more then 1 subnodes) the node will not perform the action and will not return its subnode. The two implementation are:
+* Action Nodes: For using this nodes This are transparent nodes. In other words they aren't visible when navigating the graph using the function `GetChildren` and at their place there will be their subnode. Before returning the subnode they perform a blueprintable function. With the plugin there are 2 implementation that store a named variable and its value on the external `UObject` owner of the graph that __must__ implement the `YetAnotherGraphInterface` interface (for exchanging informations between graphs and objects). If there isn't just a single subnode (there are 0 or more then 1 subnodes) the node will not perform the action and will not return its subnode. The two implementation are:
 
   * `Store Boolean`: stores a named boolean variable
   * `Store Integer`: stores a named integer.
