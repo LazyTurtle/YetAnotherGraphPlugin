@@ -62,26 +62,30 @@ If needed it's still possible to have a reference of this nodes. They are presen
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/CreatingTheAssetGraph.png">
 </p>
 
-- Create a new blueprint that inherits "SimpleNode" or "StartNode" blueprintable classes.
+- Create a new blueprint that inherits `SimpleNode` or `StartNode` blueprintable classes.
 
 <p align="center">
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/CreatingTheNewAssetNode.png">
 </p>
 
 - Customize the new blueprint node. overriding few functions.
-- - "InternalGetTitleNode" to change the name displayed int he graph editor.
-- - "HasOutpitPins" to remove the bottom area of the node, usually dedicated to the output pins.
-- - "HasInputPins" to remove the upper area of the node, usually dedicated to the input pins.
-- - Add any kind of new variable that you wish.
+  - `InternalGetTitleNode` to change the name displayed int he graph editor.
+  - `HasOutpitPins` to remove the bottom area of the node, usually dedicated to the output pins.
+  - `HasInputPins` to remove the upper area of the node, usually dedicated to the input pins.
+  - Add any kind of new variable that you wish.
 
 <p align="center">
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/CustomizingTheNewNode.png">
 </p>
 
-- Spawn the node in the graph editor.
+  - Add your categories separated by a `|` for creating your own list on the graph
 
-<p align="center">
-  <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/SelectingTheNode.png">
+<p align="Center">
+  <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/NodeCategory.png">
+  <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/Categories.png">
 </p>
+
+- Spawn the node in the graph editor by dragging an arrow from its parent or by right clicking on the graph.
+
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
