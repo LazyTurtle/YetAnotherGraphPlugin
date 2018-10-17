@@ -174,7 +174,13 @@ void SYAGraphNode::CreateContent()
 void SYAGraphNode::CreateHeader()
 {
     NodeHeader.Get()->SetText(GraphNode->GetNodeTitle(ENodeTitleType::MenuTitle));
-    NodeHeader.Get()->SetVisibility(EVisibility::Collapsed);
+
+    UYetAnotherEdGraphNode* UEdNode = CastChecked<UYetAnotherEdGraphNode>(GraphNode);
+
+    if (UEdNode)
+        NodeHeader.Get()->SetVisibility((UEdNode->GetEdNodeName().IsEmpty()) ? EVisibility::Collapsed : EVisibility::Visible);
+    else
+        EDELog("An error occurred when creating the slate node headers");
 }
 
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
