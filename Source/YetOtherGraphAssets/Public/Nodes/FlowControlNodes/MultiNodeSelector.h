@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Nodes/FlowControlNode.h"
+#include "FlowControlNode.h"
 #include "YAGraph.h"
 #include "MultiNodeSelector.generated.h"
 

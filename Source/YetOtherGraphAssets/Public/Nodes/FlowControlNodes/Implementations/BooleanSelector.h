@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Nodes/BinarySelectNode.h"
+#include "BinarySelectNode.h"
 #include "BooleanSelector.generated.h"
 
 /**

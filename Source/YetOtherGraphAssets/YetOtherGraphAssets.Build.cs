@@ -20,6 +20,11 @@ public class YetOtherGraphAssets : ModuleRules
                 "YetOtherGraphAssets/Private",
                 "YetOtherGraphAssets/Private/Graphs",
                 "YetOtherGraphAssets/Private/Nodes",
+                "YetOtherGraphAssets/Private/Nodes/ActionNodes",
+                "YetOtherGraphAssets/Private/Nodes/ActionNodes/Implementations",
+                "YetOtherGraphAssets/Private/Nodes/EmptyNodes",
+                "YetOtherGraphAssets/Private/Nodes/FlowControlNodes",
+                "YetOtherGraphAssets/Private/Nodes/FlowControlNodes/Implementations",
                 "YetOtherGraphAssets/Private/Utility",
             }
             );

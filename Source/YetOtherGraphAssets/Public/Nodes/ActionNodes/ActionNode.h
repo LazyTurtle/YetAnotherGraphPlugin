@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Nodes/SimpleNode.h"
+#include "SimpleNode.h"
 #include "YAGraph.h"
 #include "ActionNode.generated.h"
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Nodes/ActionNode.h"
+#include "ActionNode.h"
 #include "StoreInteger.generated.h"
 
 /**
