@@ -85,7 +85,7 @@ If needed it's still possible to have a reference of this nodes. They are presen
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/Categories.png">
 </p>
 
-- Spawn the node in the graph editor by dragging an arrow from its parent or by right clicking on the graph.
+- Spawn the node in the graph editor by dragging an arrow from its parent or by right clicking on the graph editor.
 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
