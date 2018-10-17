@@ -7,7 +7,6 @@
 UYANode::UYANode()
 {
 	DefaultNodeTitle = LOCTEXT("Node Title", "Node");
-    Category= LOCTEXT("Node Category", "Base Nodes");
 }
 
 UYANode * UYANode::GetNodePointer_Implementation()

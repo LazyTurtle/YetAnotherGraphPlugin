@@ -17,7 +17,7 @@ void UStoreBoolean::ActionToPerform_Implementation(UObject * GraphOwner)
         {
             IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(GraphOwner);
             if (Interface)
-                Interface->SetBooleanVariable(Name);
+                Interface->SetBooleanVariable(Name,Value);
         }
         else
         {

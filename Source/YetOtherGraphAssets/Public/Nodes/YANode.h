@@ -67,8 +67,6 @@ protected:
 	bool bHasOutputPins = true;
     UPROPERTY()
 	FText DefaultNodeTitle = FText();
-    UPROPERTY()
-    FText Category = FText();
 
 
 };

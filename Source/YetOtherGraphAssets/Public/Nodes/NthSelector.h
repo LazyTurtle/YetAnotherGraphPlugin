@@ -19,7 +19,7 @@ public:
     UNthSelector();
 
     UPROPERTY(EditAnywhere, Category = "Nth Selector")
-        FName Index;
+        FName IndexName;
 	
 	//Inherited from UMultiNodeSelector
     int32 IndexEvaluation_Implementation(UObject* GraphOwner) override;

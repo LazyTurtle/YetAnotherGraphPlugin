@@ -27,8 +27,8 @@ public:
 
 
     UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
-    bool SetBooleanVariable(FName BooleanName); // unused return
-    virtual bool SetBooleanVariable_Implementation(FName BooleanName) { return false; }
+    bool SetBooleanVariable(FName BooleanName,bool Value); // unused return
+    virtual bool SetBooleanVariable_Implementation(FName BooleanName, bool Value) { return false; }
 
     UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
     bool GetBooleanVariable(FName BooleanName) const;

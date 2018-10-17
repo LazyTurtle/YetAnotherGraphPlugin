@@ -20,7 +20,7 @@ UYANode * UActionNode::GetNodePointer_Implementation()
     else
     {
         ActionToPerform(Graph->Owner);
-        return ChildNodes[0];
+        return (ChildNodes.IsValidIndex(0)) ? ChildNodes[0] : nullptr;
     }
 }
 
