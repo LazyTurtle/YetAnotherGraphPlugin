@@ -16,21 +16,21 @@ A plugin for Unreal Engine 4 that allows to create graph-like assets.
 ## Native Features
 
 ### Naming Nodes
-Is now possible to name nodes. Named nodes can be accessed directly using the `NamedNodes` property of the graph
+Is now possible to name nodes. Named nodes can be accessed directly using the `NamedNodes` property of the graph asset
 <p align="Center">
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/RenamingNode.png">
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/NamedNodes.png">
 </p>
 
 ### Native Nodes
-The Plugin comes with 6 different node for basic graph creations. They are divided into 3 groups:
+The Plugin comes with 6 different nodes for basic graph creations. They are divided into 3 groups:
 
 * Empty Nodes: This nodes don't have any property and are to be used as parent class of the nodes that will store the informations.
 <p align="center">
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/EmptyNodes.png">
 </p>
 
-* Action Nodes: For using this nodes This are transparent nodes. In other words they aren't visible when navigating the graph using the function `GetChildren` and at their place there will be their subnode. Before returning the subnode they perform a blueprintable function. With the plugin there are 2 implementation that store a named variable and its value on the external `UObject` owner of the graph that __must__ implement the `YetAnotherGraphInterface` interface (for exchanging informations between graphs and objects). If there isn't just a single subnode (there are 0 or more then 1 subnodes) the node will not perform the action and will not return its subnode. The two implementation are:
+* Action Nodes: This are transparent nodes. In other words they aren't visible when navigating the graph using the function `GetChildren` of a node and at their place there will be their subnode. Before returning the subnode they perform a blueprintable function. With the plugin there are 2 implementation that store a named variable and its value on the external `UObject` owner of the graph that __must__ implement the `YetAnotherGraphInterface` interface (for exchanging informations between graphs and objects). If there isn't just a single subnode (there are 0 or more then 1 subnodes) the node will not perform the action and will not return its subnode. The two implementation are:
 
   * `Store Boolean`: stores a named boolean variable
   * `Store Integer`: stores a named integer.
@@ -40,9 +40,9 @@ The Plugin comes with 6 different node for basic graph creations. They are divid
   <img src="https://github.com/LazyTurtle/YetAnotherGraphPlugin/blob/master/docs/images/StoreIntegerNode.png">
 </p>
 
-* Flow Control: The task of this nodes is to change dinamically the node they return when navigating the graph. Much like the action nodes they're completely transparent when using the graph. Using the function `GetChildren` on any node if among those subnodes there is a Flow Control node it will not be seen. Instead, in place of the flow control node, there will be one of its subnodes, depending on the specific result of the evaluation implemented. There are 2 flow control abstract classes you can inherit: `BinarySelector` and `MultiNodeSelector`. But there are 2 implementations that take advantage of the action nodes:
+* Flow Control: The task of this nodes is to change dinamically the node they return when navigating the graph. Much like the action nodes they're completely transparent when using the graph. When using the function `GetChildren` on any node if among those subnodes there is a Flow Control node it will not be seen. Instead, in place of the flow control node, there will be one of its subnodes, depending on the specific result of the evaluation implemented. There are 2 flow control abstract classes you can inherit: `BinarySelector` and `MultiNodeSelector`. But there are 2 implementations that take advantage of the action nodes:
 
-  * `Boolean Selector` will look up the boolean value associated with the variable name and that returns one of at most two nodes. If there are 0 or more than 2 nodes or the evaluation turns out to be false on a single subnode, it will not return anything.
+  * `Boolean Selector` will look up the boolean value associated with the variable name and that returns one of at most two nodes. On true it will return the node on the left. If there are 0 or more than 2 nodes or the evaluation turns out to be false on a single subnode, it will not return anything.
 
   * `Nth Selector` will look up the integer associated with the variable name and return the nth-subnode, counting them from left to right and starting from 0. If there are 0 nodes or the evaluation calculate an index outside the number of nodes, it will not return anything.
   
@@ -69,7 +69,7 @@ If needed it's still possible to have a reference of this nodes. They are presen
 </p>
 
 - Customize the new blueprint node. overriding few functions.
-  - `InternalGetTitleNode` to change the name displayed int he graph editor.
+  - `GetTitleNode` to change the name displayed int he graph editor.
   - `HasOutpitPins` to remove the bottom area of the node, usually dedicated to the output pins.
   - `HasInputPins` to remove the upper area of the node, usually dedicated to the input pins.
   - Add any kind of new variable that you wish.
