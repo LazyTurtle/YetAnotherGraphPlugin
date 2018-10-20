@@ -39,8 +39,8 @@ public:
     virtual bool SetIntegerVariable_Implementation(FName IntegerName, int32 Value) { return false; }
 
     UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
-    int32 GetIntegerVariable(FName IntegerName) const;
-    virtual int32 GetIntegerVariable_Implementation(FName IntegerName) const { return 0; }
+    int32 GetIntegerVariable(FName IntegerName, bool& Result) const;
+    virtual int32 GetIntegerVariable_Implementation(FName IntegerName,bool& Result) const { return 0; }
 
 
 
