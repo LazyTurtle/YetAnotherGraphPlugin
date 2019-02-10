@@ -36,7 +36,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Node Data")
 		bool HasOutputPins();
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Node Data")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Data")
 		UYANode* GetNodePointer();
         virtual UYANode* GetNodePointer_Implementation();
 
@@ -52,7 +52,11 @@ public:
 	virtual bool RemoveNodeFromParents(UYANode* NodeToRemove);
 	virtual bool RemoveNodeFromChilds(UYANode* NodeToRemove);
 
-
+    
+#if WITH_ENGINE
+    //we need this because otherwise during visual scripting with blueprints we can't use anything from WorldContextObject like "get game mode" or "get player controller"
+    virtual class UWorld* GetWorld() const override;
+#endif
 
 protected:
 	UPROPERTY()

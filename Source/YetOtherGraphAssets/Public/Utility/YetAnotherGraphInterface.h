@@ -26,19 +26,19 @@ public:
     // The boolean returns shouldn't be used and they're here only to aggregate all the functions under the "Intefaces" section of blueprints
 
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Graph interface")
     bool SetBooleanVariable(FName BooleanName,bool Value); // unused return
     virtual bool SetBooleanVariable_Implementation(FName BooleanName, bool Value) { return false; }
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Graph interface")
     bool GetBooleanVariable(FName BooleanName) const;
     virtual bool GetBooleanVariable_Implementation(FName BooleanName) const { return false; }
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Graph interface")
     bool SetIntegerVariable(FName IntegerName, int32 Value); // unused return
     virtual bool SetIntegerVariable_Implementation(FName IntegerName, int32 Value) { return false; }
 
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph interface")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Graph interface")
     int32 GetIntegerVariable(FName IntegerName, bool& Result) const;
     virtual int32 GetIntegerVariable_Implementation(FName IntegerName,bool& Result) const { return 0; }
 

@@ -17,9 +17,9 @@ class YETOTHERGRAPHASSETS_API UStoreBoolean : public UActionNode
 public:
     UStoreBoolean();
 
-    UPROPERTY(EditAnywhere, Category = "Informations")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Informations")
         FName Name;
-    UPROPERTY(EditAnywhere, Category = "Informations")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Informations")
         bool Value;
 	
     //Inherited from UActionNode

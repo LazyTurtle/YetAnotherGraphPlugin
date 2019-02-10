@@ -2,6 +2,9 @@
 #include "YAGraph.h"
 #include "YANode.h"
 #include "StartNode.h"
+#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
+
 #define LOCTEXT_NAMESPACE "UYAGraph"
 
 UYAGraph::UYAGraph()
@@ -27,7 +30,25 @@ TArray<UStartNode*> UYAGraph::GetStartingNodes()
 void UYAGraph::InitGraph(UObject * ParentObject)
 {
     Owner = ParentObject;
+    Rename(nullptr, ParentObject);
 }
+
+
+#if WITH_ENGINE
+
+UWorld * UYAGraph::GetWorld() const
+{
+    if (GetOuter()->IsA(UActorComponent::StaticClass()) || GetOuter()->IsA(AActor::StaticClass()))
+    {
+        return GetOuter()->GetWorld();
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+#endif
 
 #if WITH_EDITORONLY_DATA
 void UYAGraph::AddNode(UYANode * InNode)

@@ -18,7 +18,7 @@ public:
 
     UBooleanSelector();
 
-    UPROPERTY(EditAnywhere, Category = "Boolean Selector")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Boolean Selector")
     FName Name;
 	
 	//Inherited from BinarySelectNode

@@ -18,7 +18,7 @@ public:
 
     UNthSelector();
 
-    UPROPERTY(EditAnywhere, Category = "Nth Selector")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nth Selector")
         FName IndexName;
 	
 	//Inherited from UMultiNodeSelector

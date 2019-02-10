@@ -23,7 +23,7 @@ class YETOTHERGRAPHASSETS_API IGraphSupportComponentInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-    UFUNCTION(BlueprintNativeEvent, Category = "Graph Support Interface")
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Graph Support Interface")
         UGraphSupportComponent* GetGraphSupportComponent();
     virtual UGraphSupportComponent* GetGraphSupportComponent_Implementation() = 0;
 	

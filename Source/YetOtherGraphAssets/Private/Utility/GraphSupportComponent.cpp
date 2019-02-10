@@ -17,16 +17,6 @@ UGraphSupportComponent::UGraphSupportComponent()
 }
 
 
-//void UGraphSupportComponent::SetNamedBoolean_Implementation(FName VariableName, bool Value)
-//{
-//    NamedBoolean.Add(VariableName, Value);
-//}
-//
-//void UGraphSupportComponent::SetNamedInteger_Implementation(FName VariableName, bool Value)
-//{
-//    NamedInteger.Add(VariableName, Value);
-//}
-
 
 // Called when the game starts
 void UGraphSupportComponent::BeginPlay()

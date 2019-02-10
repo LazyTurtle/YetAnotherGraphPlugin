@@ -17,9 +17,9 @@ class YETOTHERGRAPHASSETS_API UStoreInteger : public UActionNode
 public:
     UStoreInteger();
 
-    UPROPERTY(EditAnywhere, Category = "Informations")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Informations")
         FName Name;
-    UPROPERTY(EditAnywhere, Category = "Informations")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Informations")
         int32 Value;
 	
     //Inherited from UActionNode

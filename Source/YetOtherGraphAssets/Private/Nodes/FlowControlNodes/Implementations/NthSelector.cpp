@@ -20,29 +20,26 @@ int32 UNthSelector::IndexEvaluation_Implementation(UObject* GraphOwner)
     bool Result = false;
     UObject* Support=nullptr;
 
-    if (GraphOwner->StaticClass()->ImplementsInterface(UGraphSupportComponent::StaticClass()))
+    if (GraphOwner->GetClass()->ImplementsInterface(UGraphSupportComponentInterface::StaticClass()))
     {
         IGraphSupportComponentInterface* Interface = Cast<IGraphSupportComponentInterface>(GraphOwner);
-        Support = Interface->GetGraphSupportComponent();
+        Support = Interface->Execute_GetGraphSupportComponent(GraphOwner);
     }
     else
-    {
-        WLog("The object %s does not implement the graph support interface.", *GraphOwner->StaticClass()->GetDisplayNameText().ToString());
-    }
-
-    if (!Support)
-    {
-        if (GraphOwner->StaticClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
+        if (GraphOwner->GetClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
             Support = GraphOwner;
-        else
-            WLog("The object %s does not implement the graph interface.", *GraphOwner->StaticClass()->GetDisplayNameText().ToString());
-    }
 
-    IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(Support);
-    if (Interface)
-        Integer = Interface->GetIntegerVariable(IndexName, Result);
+    if (Support != nullptr)
+    {
+        IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(Support);
+        if (Interface)
+            Integer = Interface->Execute_GetIntegerVariable(Support, IndexName, Result);
+    }
+    else
+        ELog("No graph interfaces has been found.");
+
     if (!Result)
-        ELog("%s:Error upon looking for an integer", *StaticClass()->GetDisplayNameText().ToString());
+        ELog("%s:Error upon looking for an integer", *GraphOwner->GetClass()->GetDisplayNameText().ToString());
 
    
     return Integer;

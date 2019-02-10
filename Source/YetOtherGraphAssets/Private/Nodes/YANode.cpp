@@ -1,6 +1,8 @@
 // Copyright (c) 2018 Jhonny Hueller
 #include "YANode.h"
 #include "YAGraph.h"
+#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 
 #define LOCTEXT_NAMESPACE "YANode" 
 
@@ -96,5 +98,21 @@ bool UYANode::RemoveNodeFromChilds(UYANode * NodeToRemove)
 {
 	return ChildNodes.Remove(NodeToRemove);
 }
+
+#if WITH_ENGINE
+
+UWorld * UYANode::GetWorld() const
+{
+    if (GetOuter()->IsA(UActorComponent::StaticClass()) || GetOuter()->IsA(AActor::StaticClass()))
+    {
+        return GetOuter()->GetWorld();
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+#endif
 
 #undef LOCTEXT_NAMESPACE

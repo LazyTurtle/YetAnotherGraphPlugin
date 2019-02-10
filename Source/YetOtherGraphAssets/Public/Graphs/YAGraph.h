@@ -41,6 +41,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Graph Data")
         void InitGraph(UObject* ParentObject);
 
+    
+#if WITH_ENGINE
+    //we need this because otherwise during visual scripting with blueprints we can't use anything from WorldContextObject like "get game mode" or "get player controller"
+    virtual class UWorld* GetWorld() const override;
+#endif
 
 
 #if WITH_EDITORONLY_DATA

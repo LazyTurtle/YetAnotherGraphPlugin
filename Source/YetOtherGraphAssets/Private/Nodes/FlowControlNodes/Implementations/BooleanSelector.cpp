@@ -19,29 +19,25 @@ bool UBooleanSelector::BooleanEvaluation_Implementation(UObject* GraphOwner)
     bool Result = false;
     UObject* Support = nullptr;
 
-    if (GraphOwner->StaticClass()->ImplementsInterface(UGraphSupportComponent::StaticClass()))
+    if (GraphOwner->GetClass()->ImplementsInterface(UGraphSupportComponentInterface::StaticClass()))
     {
         IGraphSupportComponentInterface* Interface = Cast<IGraphSupportComponentInterface>(GraphOwner);
-        Support = Interface->GetGraphSupportComponent();
+        Support = Interface->Execute_GetGraphSupportComponent(GraphOwner);
     }
     else
-    {
-        WLog("The object %s does not implement the graph support component interface.", *GraphOwner->StaticClass()->GetDisplayNameText().ToString());
-    }
-
-    if (!Support)
-    {
-        if (GraphOwner->StaticClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
+        if (GraphOwner->GetClass()->ImplementsInterface(UYetAnotherGraphInterface::StaticClass()))
             Support = GraphOwner;
-        else
-            WLog("The object %s does not implement the graph interface.", *GraphOwner->StaticClass()->GetDisplayNameText().ToString());
+
+    if (Support != nullptr)
+    {
+        IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(Support);
+        if (Interface)
+            Result = Interface->Execute_GetBooleanVariable(Support, Name);
     }
+    else
+        ELog("No graph interfaces has been found.");
 
-    IYetAnotherGraphInterface* Interface = Cast<IYetAnotherGraphInterface>(Support);
-
-    if (Interface)
-        Result = Interface->GetBooleanVariable(Name);
-
+    
     return Result;
 }
 

@@ -2,6 +2,7 @@
 
 #include "ActionNode.h"
 #include "Logger.h"
+#include "Array.h"
 
 #define LOCTEXT_NAMESPACE "ActionNode"
 
@@ -12,15 +13,15 @@ UActionNode::UActionNode()
 
 UYANode * UActionNode::GetNodePointer_Implementation()
 {
-    if (ChildNodes.Num() != 1)
+    if (ChildNodes.Num() <= 1)
     {
-        ELog("There should be only one subnode on an ActionNode");
-        return nullptr;
+        ActionToPerform(Graph->Owner);
+        return (ChildNodes.IsValidIndex(0)) ? ChildNodes[0]->GetNodePointer() : nullptr;
     }
     else
     {
-        ActionToPerform(Graph->Owner);
-        return (ChildNodes.IsValidIndex(0)) ? ChildNodes[0] : nullptr;
+        ELog("There should be at most one subnode on an ActionNode");
+        return nullptr;
     }
 }
 
