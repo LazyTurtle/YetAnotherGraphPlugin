@@ -30,7 +30,8 @@ TArray<UStartNode*> UYAGraph::GetStartingNodes()
 void UYAGraph::InitGraph(UObject * ParentObject)
 {
     Owner = ParentObject;
-    Rename(nullptr, ParentObject);
+    //it seems that a Rename after the asset has already been assigned in a variable prevents referencing it properly on runtime
+    //Rename(nullptr, ParentObject);
 }
 
 
