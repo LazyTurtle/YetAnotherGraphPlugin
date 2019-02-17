@@ -39,14 +39,14 @@ void UYAGraph::InitGraph(UObject * ParentObject)
 
 UWorld * UYAGraph::GetWorld() const
 {
-    if (GetOuter()->IsA(UActorComponent::StaticClass()) || GetOuter()->IsA(AActor::StaticClass()))
+    if (Owner->IsA(UActorComponent::StaticClass()) || Owner->IsA(AActor::StaticClass()))
     {
-        return GetOuter()->GetWorld();
+        return Owner->GetWorld();
     }
-    else
-    {
-        return nullptr;
-    }
+    
+    ELog("It hasn't been possible to retrieve the world context from %s for %s", *Owner->GetFullName(), *GetFullName());
+    return nullptr;
+    
 }
 
 #endif

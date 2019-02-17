@@ -103,14 +103,7 @@ bool UYANode::RemoveNodeFromChilds(UYANode * NodeToRemove)
 
 UWorld * UYANode::GetWorld() const
 {
-    if (GetOuter()->IsA(UActorComponent::StaticClass()) || GetOuter()->IsA(AActor::StaticClass()))
-    {
-        return GetOuter()->GetWorld();
-    }
-    else
-    {
-        return nullptr;
-    }
+    return (Graph) ? Graph->GetWorld() : nullptr;
 }
 
 #endif
